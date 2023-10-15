@@ -15,14 +15,17 @@ public class Player {
     private String playerName;
     private Map myMap;
     private Room currentRoom;
-
     private ArrayList<Item> inventory = new ArrayList<Item>();
+    private int playerHP;
+    private int playerATK;
 
     public Player(String playerName, Map map) {
         this.playerName = playerName;
         this.myMap = map;
         this.currentRoom = myMap.getRoom(1);
         currentRoom.setVisited(true);
+        playerHP = 100;
+        playerATK = 20;
     }
 
     public String getPlayerName() {
@@ -105,12 +108,14 @@ public class Player {
         }
     }
 
-    //Print player's location
+    //When player enter a room, they will see room information, items and puzzles
+    //Player has to solve the puzzle before picking up item
     public void enterRoom(){
         displayLocation();
         displayPuzzle();
     }
 
+    //Print the current room information and items in that room
     public void displayLocation(){
         System.out.println("\n---------------");
         System.out.println("You are at Region " + currentRoom.getRoomID() + ", " + currentRoom.getRoomName());
@@ -141,6 +146,7 @@ public class Player {
         inventory.remove(item);
     }
 
+    //Find an item in inventory
     public Item findItem(String itemName){
         Item item = null;
         for (Item i : inventory){
@@ -166,7 +172,7 @@ public class Player {
             System.out.println("You have picked up: " + item.getItemName());
         }
         else System.out.println("There is no such item in this room.");
-        enterRoom();
+        displayLocation();
     }
 
     public void dropItem(String itemName){
@@ -178,7 +184,7 @@ public class Player {
             System.out.println("You dropped: " + item.getItemName());
         }
         else System.out.println("You don't have this item in your inventory.");
-        enterRoom();
+        displayLocation();
     }
 
     public void inspectItem(String itemName){
@@ -200,6 +206,7 @@ public class Player {
         System.out.printf("| %2s %8s %-10s %10s \n", "drop","","Drop item","|");
         System.out.printf("| %2s %5s %-13s %7s \n", "inspect","","Inspect item","|");
         System.out.printf("| %2s %4s %-10s %6s \n", "location","","Check location","|");
+        System.out.printf("| %2s %7s %-10s %6s \n", "stats","","Check HP & ATK","|");
         System.out.printf("| %2s %8s %-10s %10s \n", "help","","Help menu","|");
         System.out.println("-------------------------------------\n");
     }
@@ -223,7 +230,15 @@ public class Player {
                         System.out.println("No more attempts! Please comeback later.");
                 }
             }
-        } else return;
+        }
+    }
+
+    public void displayStats(){
+        System.out.println("\n-----Player's Stats-----");
+        System.out.println("Player name: " + playerName);
+        System.out.println("Health point (HP): " + playerHP);
+        System.out.println("Attack (ATK): " + playerATK);
+        System.out.println("------------------------\n");
     }
 
 }

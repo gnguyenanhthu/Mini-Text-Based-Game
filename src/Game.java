@@ -76,6 +76,9 @@ public class Game {
                 //System.out.println(itemName);
                 player1.inspectItem(itemName);
             }
+            else if (playerInput.equalsIgnoreCase("stats")){
+                player1.displayStats();
+            }
             else{
                 System.out.println("Please enter correct command.");
             }
