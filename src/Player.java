@@ -137,4 +137,18 @@ public class Player {
         else System.out.println("There is no such item in this room.");
     }
 
+    public void dropItem(String itemName){
+        Item item = null;
+        for (Item i : inventory){
+            if (i.getItemName().equalsIgnoreCase(itemName))
+                item = i;
+        }
+        if (item!=null) {
+            removeFromInv(item);
+            currentRoom.addItem(item);
+            System.out.println("You dropped: " + item.getItemName());
+        }
+        else System.out.println("You don't have this item in your inventory.");
+    }
+
 }

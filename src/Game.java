@@ -56,6 +56,11 @@ public class Game {
                 //System.out.println(itemName);
                 player1.pickUpItem(itemName);
             }
+            else if (playerInput.toLowerCase().contains("drop")){
+                String itemName = playerInput.substring(5,playerInput.length());
+                System.out.println(itemName);
+                player1.dropItem(itemName);
+            }
             else{
                 System.out.println("Please enter correct command.");
             }
