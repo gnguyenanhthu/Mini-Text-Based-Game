@@ -29,10 +29,16 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" +
-                "itemID=" + itemID +
-                ", itemName='" + itemName + '\'' +
-                ", itemDescription='" + itemDescription + '\'' +
-                '}';
+        return "(" + itemID +
+                ") " + itemName;
     }
+
+//    @Override
+//    public String toString() {
+//        return "Item{" +
+//                "itemID=" + itemID +
+//                ", itemName='" + itemName + '\'' +
+//                ", itemDescription='" + itemDescription + '\'' +
+//                '}';
+//    }
 }

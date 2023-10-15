@@ -14,7 +14,9 @@ public class Player {
     private Map myMap;
     private Room currentRoom;
 
-    public Player(String playerName,Map map) {
+    private ArrayList<Item> inventory = new ArrayList<>();
+
+    public Player(String playerName, Map map) {
         this.playerName = playerName;
         this.myMap = map;
         this.currentRoom = myMap.getRoom(1);
@@ -31,6 +33,10 @@ public class Player {
 
     public Room getCurrentRoom() {
         return currentRoom;
+    }
+
+    public ArrayList<Item> getInventory() {
+        return inventory;
     }
 
     public void setCurrentRoom(Room currentRoom) {
@@ -69,7 +75,7 @@ public class Player {
         if (currentRoom.getSouthRoom() == 0)
             System.out.println("You cannot go this way. Please choose another direction!");
         else {
-             setCurrentRoom(myMap.getRoom(currentRoom.getSouthRoom()));
+            setCurrentRoom(myMap.getRoom(currentRoom.getSouthRoom()));
             checkVisited();
         }
     }
@@ -100,6 +106,14 @@ public class Player {
     //Print player's location
     public String location(){
         return "You are at Region " + currentRoom.getRoomID() + ", " + currentRoom.getRoomName();
+    }
+
+    public void addToInv(Item item){
+        inventory.add(item);
+    }
+
+    public void removeFromInv(Item item){
+        inventory.remove(item);
     }
 
 }

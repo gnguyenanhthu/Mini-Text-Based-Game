@@ -79,6 +79,8 @@ public class Room {
         this.westRoom = westRoom;
     }
 
+    public ArrayList<Item> getItemList() { return itemList; }
+
     public boolean isVisited() {
         return isVisited;
     }
@@ -93,6 +95,10 @@ public class Room {
 
     public void removeItem(Item item){
         itemList.remove(item);
+    }
+
+    public void displayItemList(){
+        System.out.println("You found " + itemList);
     }
 
     @Override

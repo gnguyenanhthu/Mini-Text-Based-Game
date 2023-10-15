@@ -53,10 +53,16 @@ public class Game {
             }
 
             System.out.println(player1.location());
+            if (!player1.getCurrentRoom().getItemList().isEmpty())
+                player1.getCurrentRoom().displayItemList();
             System.out.println("Which direction do you want to go? (N/E/S/W)");
             playerInput = input.nextLine();
         }
         player1.checkAllVisited();
         System.out.println("Bye " + player1.getPlayerName() + " ~ Thank you for traveling around the world with us!");
+    }
+
+    public void pickUpItem(){
+
     }
 }
