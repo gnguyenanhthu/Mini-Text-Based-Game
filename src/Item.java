@@ -1,4 +1,4 @@
-public class Item {
+public class Item implements Comparable <Item>{
     private int initRoomID;
     private int itemID;
     private String itemName;
@@ -31,6 +31,15 @@ public class Item {
     public String toString() {
         return "(" + itemID +
                 ") " + itemName;
+    }
+
+    @Override
+    public int compareTo(Item o) {
+        if (itemID < o.itemID)
+            return -1;
+        else if (itemID > o.itemID)
+            return 1;
+        else return 0;
     }
 
 //    @Override

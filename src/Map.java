@@ -45,7 +45,7 @@ public class Map {
             for (Item i : itemList){
                 myMap.get(i.getInitRoomID()-1).addItem(i);
             }
-            System.out.println(itemList);
+//            System.out.println(itemList);
 //            System.out.println(myMap.get(1));
 //            System.out.println(myMap.get(3));
 

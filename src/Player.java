@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /*
 Player class has player's name, a map and current room
@@ -14,7 +16,7 @@ public class Player {
     private Map myMap;
     private Room currentRoom;
 
-    private ArrayList<Item> inventory = new ArrayList<>();
+    private ArrayList<Item> inventory = new ArrayList<Item>();
 
     public Player(String playerName, Map map) {
         this.playerName = playerName;
@@ -104,8 +106,12 @@ public class Player {
     }
 
     //Print player's location
-    public String location(){
-        return "You are at Region " + currentRoom.getRoomID() + ", " + currentRoom.getRoomName();
+    public void location(){
+        System.out.println("\n---------------");
+        System.out.println("You are at Region " + currentRoom.getRoomID() + ", " + currentRoom.getRoomName());
+        if (!currentRoom.getItemList().isEmpty())
+            currentRoom.displayItemList();
+        System.out.println("---------------\n");
     }
 
     public void displayInventory(){
@@ -117,6 +123,7 @@ public class Player {
 
     public void addToInv(Item item){
         inventory.add(item);
+        Collections.sort(inventory);
     }
 
     public void removeFromInv(Item item){
@@ -166,6 +173,14 @@ public class Player {
             System.out.println(item.getItemDescription());
         }
         else System.out.println("You don't have this item in your inventory.");
+    }
+
+    public void displayCommand(){
+        System.out.println("\n---------------HELP MENU---------------");
+        System.out.printf("| %3s %15s | \n", "n", "Move North");
+        System.out.printf("| %3s %15s | \n", "e", "Move East");
+        System.out.println("---------------------------------------");
+
     }
 
 }
