@@ -108,12 +108,33 @@ public class Player {
         return "You are at Region " + currentRoom.getRoomID() + ", " + currentRoom.getRoomName();
     }
 
+    public void displayInventory(){
+        if (inventory.isEmpty())
+            System.out.println("You didn't pickup any items yet");
+        else
+            System.out.println("Inventory: " + inventory);
+    }
+
     public void addToInv(Item item){
         inventory.add(item);
     }
 
     public void removeFromInv(Item item){
         inventory.remove(item);
+    }
+
+    public void pickUpItem(String itemName){
+        Item item = null;
+        for (Item i : currentRoom.getItemList()){
+            if (i.getItemName().equalsIgnoreCase(itemName))
+                item = i;
+        }
+        if (item!=null) {
+            addToInv(item);
+            currentRoom.removeItem(item);
+            System.out.println("You have picked up: " + item.getItemName());
+        }
+        else System.out.println("There is no such item in this room.");
     }
 
 }

@@ -48,21 +48,28 @@ public class Game {
             else if (playerInput.equalsIgnoreCase("w") || playerInput.equalsIgnoreCase("west")){
                 player1.moveWest();
             }
+            else if (playerInput.equalsIgnoreCase("inventory")){
+                player1.displayInventory();
+            }
+            else if (playerInput.toLowerCase().contains("pickup")){
+                String itemName = playerInput.substring(7,playerInput.length());
+                //System.out.println(itemName);
+                player1.pickUpItem(itemName);
+            }
             else{
-                System.out.println("Please enter correct direction.");
+                System.out.println("Please enter correct command.");
             }
 
+            System.out.println("\n---------------");
             System.out.println(player1.location());
             if (!player1.getCurrentRoom().getItemList().isEmpty())
                 player1.getCurrentRoom().displayItemList();
-            System.out.println("Which direction do you want to go? (N/E/S/W)");
+            System.out.println("---------------");
+            System.out.println();
+            System.out.println("Please input your command: ");
             playerInput = input.nextLine();
         }
         player1.checkAllVisited();
         System.out.println("Bye " + player1.getPlayerName() + " ~ Thank you for traveling around the world with us!");
-    }
-
-    public void pickUpItem(){
-
     }
 }

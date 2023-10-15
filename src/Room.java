@@ -98,7 +98,7 @@ public class Room {
     }
 
     public void displayItemList(){
-        System.out.println("You found " + itemList);
+        System.out.println("There are " + itemList + " in this room.");
     }
 
     @Override
