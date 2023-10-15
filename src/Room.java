@@ -21,6 +21,8 @@ public class Room {
 
     private ArrayList<Item> itemList = new ArrayList<>();
 
+    private Puzzle puzzle = null;
+
     public Room(int roomID, String roomName, int northRoom, int eastRoom, int southRoom, int westRoom, boolean isVisited) {
         this.roomID = roomID;
         this.roomName = roomName;
@@ -80,6 +82,14 @@ public class Room {
     }
 
     public ArrayList<Item> getItemList() { return itemList; }
+
+    public Puzzle getPuzzle() {
+        return puzzle;
+    }
+
+    public void setPuzzle(Puzzle puzzle) {
+        this.puzzle = puzzle;
+    }
 
     public boolean isVisited() {
         return isVisited;

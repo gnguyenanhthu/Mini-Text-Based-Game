@@ -1,2 +1,13 @@
-1,5,How do you say "hello" in Vietnamese?,xin chao, Xin chao! Welcome to Vietnam!
-2,6,What is the national animal of Australia?,kangaroo,A kangaroo is jumping to you, watch out! 
+1
+5
+3
+How do you say "hello" in Vietnamese?
+xin chao
+Xin chao! Welcome to Vietnam!
+
+2
+6
+1
+What is the national animal of Australia?
+kangaroo
+A kangaroo is jumping to you, watch out!

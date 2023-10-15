@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.Scanner;
 
 /*
 Player class has player's name, a map and current room
@@ -106,7 +106,12 @@ public class Player {
     }
 
     //Print player's location
-    public void location(){
+    public void enterRoom(){
+        displayLocation();
+        displayPuzzle();
+    }
+
+    public void displayLocation(){
         System.out.println("\n---------------");
         System.out.println("You are at Region " + currentRoom.getRoomID() + ", " + currentRoom.getRoomName());
         if (!currentRoom.getItemList().isEmpty())
@@ -115,10 +120,16 @@ public class Player {
     }
 
     public void displayInventory(){
-        if (inventory.isEmpty())
+        if (inventory.isEmpty()) {
+            System.out.println("\n***************");
             System.out.println("You didn't pickup any items yet");
-        else
+            System.out.println("***************\n");
+        }
+        else {
+            System.out.println("\n***************");
             System.out.println("Inventory: " + inventory);
+            System.out.println("***************\n");
+        }
     }
 
     public void addToInv(Item item){
@@ -155,6 +166,7 @@ public class Player {
             System.out.println("You have picked up: " + item.getItemName());
         }
         else System.out.println("There is no such item in this room.");
+        enterRoom();
     }
 
     public void dropItem(String itemName){
@@ -162,9 +174,11 @@ public class Player {
         if (item!=null) {
             removeFromInv(item);
             currentRoom.addItem(item);
+            Collections.sort(currentRoom.getItemList());
             System.out.println("You dropped: " + item.getItemName());
         }
         else System.out.println("You don't have this item in your inventory.");
+        enterRoom();
     }
 
     public void inspectItem(String itemName){
@@ -176,11 +190,40 @@ public class Player {
     }
 
     public void displayCommand(){
-        System.out.println("\n---------------HELP MENU---------------");
-        System.out.printf("| %3s %15s | \n", "n", "Move North");
-        System.out.printf("| %3s %15s | \n", "e", "Move East");
-        System.out.println("---------------------------------------");
+        System.out.println("\n--------------HELP MENU--------------");
+        System.out.printf("| %2s %5s %-10s %10s \n", "n/north", "", "Move North","|");
+        System.out.printf("| %2s %6s %-10s %10s \n", "e/east","","Move East","|");
+        System.out.printf("| %2s %5s %-13s %7s \n", "s/south","", "Move South","|");
+        System.out.printf("| %2s %6s %-13s %7s \n", "w/west","","Move West","|");
+        System.out.printf("| %2s %3s %-10s %5s \n", "inventory","", "Check inventory","|");
+        System.out.printf("| %2s %6s %-10s %8s \n", "pickup","","Pick up item","|");
+        System.out.printf("| %2s %8s %-10s %10s \n", "drop","","Drop item","|");
+        System.out.printf("| %2s %5s %-13s %7s \n", "inspect","","Inspect item","|");
+        System.out.printf("| %2s %4s %-10s %6s \n", "location","","Check location","|");
+        System.out.printf("| %2s %8s %-10s %10s \n", "help","","Help menu","|");
+        System.out.println("-------------------------------------\n");
+    }
 
+    public void displayPuzzle(){
+        if(currentRoom.getPuzzle()!=null){
+            int attempts = currentRoom.getPuzzle().getNumbOfAttempts();
+            Scanner input = new Scanner(System.in);
+            for (int i = attempts; i > 0; i--){
+                System.out.println(currentRoom.getPuzzle().getQuestion());
+                String answer = input.nextLine();
+                if (answer.equalsIgnoreCase(currentRoom.getPuzzle().getAnswer())){
+                    System.out.println("You solved the puzzle correctly! " + currentRoom.getPuzzle().getSolvedMessage());
+                    currentRoom.setPuzzle(null);
+                    break;
+                }
+                else{
+                    if ((i-1) > 0)
+                        System.out.println("The answer you provided is wrong, you still have " + (i-1) +" attempts. Try one more time");
+                    else
+                        System.out.println("No more attempts! Please comeback later.");
+                }
+            }
+        } else return;
     }
 
 }
