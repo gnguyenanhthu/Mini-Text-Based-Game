@@ -38,13 +38,14 @@ public class Map {
                 int initRoomID = scan.nextInt();
                 String itemName = scan.next();
                 String itemDescription = scan.nextLine();
+                itemDescription = itemDescription.substring(1,itemDescription.length());
                 itemList.add(new Item(initRoomID,itemID,itemName,itemDescription));
             }
             scan.close();
             for (Item i : itemList){
                 myMap.get(i.getInitRoomID()-1).addItem(i);
             }
-//            System.out.println(itemList);
+            System.out.println(itemList);
 //            System.out.println(myMap.get(1));
 //            System.out.println(myMap.get(3));
 

@@ -123,11 +123,24 @@ public class Player {
         inventory.remove(item);
     }
 
+    public Item findItem(String itemName){
+        Item item = null;
+        for (Item i : inventory){
+            if (i.getItemName().equalsIgnoreCase(itemName)){
+                item = i;
+                break;
+            }
+        }
+        return item;
+    }
+
     public void pickUpItem(String itemName){
         Item item = null;
         for (Item i : currentRoom.getItemList()){
-            if (i.getItemName().equalsIgnoreCase(itemName))
+            if (i.getItemName().equalsIgnoreCase(itemName)){
                 item = i;
+                break;
+            }
         }
         if (item!=null) {
             addToInv(item);
@@ -138,15 +151,19 @@ public class Player {
     }
 
     public void dropItem(String itemName){
-        Item item = null;
-        for (Item i : inventory){
-            if (i.getItemName().equalsIgnoreCase(itemName))
-                item = i;
-        }
+        Item item = findItem(itemName);
         if (item!=null) {
             removeFromInv(item);
             currentRoom.addItem(item);
             System.out.println("You dropped: " + item.getItemName());
+        }
+        else System.out.println("You don't have this item in your inventory.");
+    }
+
+    public void inspectItem(String itemName){
+        Item item = findItem(itemName);
+        if (item!=null) {
+            System.out.println(item.getItemDescription());
         }
         else System.out.println("You don't have this item in your inventory.");
     }

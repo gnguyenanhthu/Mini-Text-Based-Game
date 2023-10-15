@@ -14,8 +14,7 @@ public class Game {
         game.play();
     }
     public void start(){
-        System.out.println("Welcot" +
-                "me to Text-based Around the World. Hi new traveler, please tell us your name:");
+        System.out.println("Welcome to Text-based Around the World. Hi new traveler, please tell us your name:");
         String playerName = input.nextLine();
         Map MyMap;
         try {
@@ -58,8 +57,13 @@ public class Game {
             }
             else if (playerInput.toLowerCase().contains("drop")){
                 String itemName = playerInput.substring(5,playerInput.length());
-                System.out.println(itemName);
+                //System.out.println(itemName);
                 player1.dropItem(itemName);
+            }
+            else if (playerInput.toLowerCase().contains("inspect")){
+                String itemName = playerInput.substring(8,playerInput.length());
+                //System.out.println(itemName);
+                player1.inspectItem(itemName);
             }
             else{
                 System.out.println("Please enter correct command.");
