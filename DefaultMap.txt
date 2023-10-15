@@ -1,0 +1,6 @@
+1,0,2,3,0,Mountain,FALSE
+2,0,0,4,1,Beach,FALSE
+3,1,4,5,0,Desert,FALSE
+4,2,0,6,3,Volcano,FALSE
+5,3,6,0,0,City,FALSE
+6,4,0,0,5,Lake,FALSE

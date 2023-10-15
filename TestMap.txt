@@ -1,0 +1,6 @@
+1,0,2,3,0,Larenceville,FALSE
+2,0,0,4,1,Duluth,FALSE
+3,1,4,5,0,Norcross,FALSE
+4,2,0,6,3,Suwanee,FALSE
+5,3,6,0,0,Atlanta,FALSE
+6,4,0,0,5,Snellville,FALSE
