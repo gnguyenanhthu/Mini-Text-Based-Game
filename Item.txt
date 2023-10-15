@@ -1,0 +1,3 @@
+1,2,Hambuger,American fast-food: a sandwich consisting of fillings and vegetables.
+2,4,Panda,China’s National Treasures: a panda bear with distinctive black and white fur.
+3,4,Lantern,China's symbol: red lanterns represent wealth and prosperity, yellow lanterns represent good luck.

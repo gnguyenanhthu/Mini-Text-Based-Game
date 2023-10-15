@@ -14,7 +14,8 @@ public class Game {
         game.play();
     }
     public void start(){
-        System.out.println("Welcome to Text-based Around the World. Hi new traveler, please tell us your name:");
+        System.out.println("Welcot" +
+                "me to Text-based Around the World. Hi new traveler, please tell us your name:");
         String playerName = input.nextLine();
         Map MyMap;
         try {

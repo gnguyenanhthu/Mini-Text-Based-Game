@@ -13,8 +13,9 @@ There are 2 methods:
 
 
 public class Map {
-    private static final String defaultFile = "DefaultMap.txt";
+    private static final String defaultFile = "Map1.txt";
     ArrayList<Room> myMap = new ArrayList<>();
+    ArrayList<Item> itemList = new ArrayList<>();
     public Map(){
         try {
             Scanner scan = new Scanner(new File(defaultFile));
@@ -30,6 +31,23 @@ public class Map {
                 myMap.add(new Room(roomID,roomName,northRoom,eastRoom,southRoom,westRoom,isVisited));
             }
             scan.close();
+            scan = new Scanner(new File("Item.txt"));
+            scan.useDelimiter(",");
+            while(scan.hasNext()){
+                int itemID = scan.nextInt();
+                int initRoomID = scan.nextInt();
+                String itemName = scan.next();
+                String itemDescription = scan.nextLine();
+                itemList.add(new Item(initRoomID,itemID,itemName,itemDescription));
+            }
+            scan.close();
+            for (Item i : itemList){
+                myMap.get(i.getInitRoomID()-1).addItem(i);
+            }
+//            System.out.println(itemList);
+//            System.out.println(myMap.get(1));
+//            System.out.println(myMap.get(3));
+
         } catch (FileNotFoundException e) {
                 e.printStackTrace();
         }

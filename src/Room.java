@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /*
 Room class keeps track of room's attributes:
     roomID: unique room ID
@@ -16,6 +18,8 @@ public class Room {
     private int southRoom;
     private int westRoom;
     private boolean isVisited;
+
+    private ArrayList<Item> itemList = new ArrayList<>();
 
     public Room(int roomID, String roomName, int northRoom, int eastRoom, int southRoom, int westRoom, boolean isVisited) {
         this.roomID = roomID;
@@ -83,16 +87,20 @@ public class Room {
         isVisited = visited;
     }
 
+    public void addItem(Item item){
+        itemList.add(item);
+    }
+
+    public void removeItem(Item item){
+        itemList.remove(item);
+    }
+
     @Override
     public String toString() {
         return "Room{" +
                 "roomID=" + roomID +
                 ", roomName='" + roomName + '\'' +
-                ", northRoom=" + northRoom +
-                ", eastRoom=" + eastRoom +
-                ", southRoom=" + southRoom +
-                ", westRoom=" + westRoom +
-                ", isVisited=" + isVisited +
-                "}\n";
+                ", itemList=" + itemList +
+                '}';
     }
 }
