@@ -79,6 +79,9 @@ public class Game {
             else if (playerInput.equalsIgnoreCase("stats")){
                 player1.displayStats();
             }
+            else if (playerInput.equalsIgnoreCase("map")){
+                player1.displayMap();
+            }
             else{
                 System.out.println("Please enter correct command.");
             }

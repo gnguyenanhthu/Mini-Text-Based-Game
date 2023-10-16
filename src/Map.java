@@ -17,6 +17,7 @@ public class Map {
     ArrayList<Room> myMap = new ArrayList<>();
     ArrayList<Item> itemList = new ArrayList<>();
     ArrayList<Puzzle> puzzleList = new ArrayList<>();
+    int[] visualMap = new int[40];
     public Map(){
         try {
             Scanner scan = new Scanner(new File(defaultFile));
@@ -74,6 +75,17 @@ public class Map {
             }
             System.out.println("Finish adding Puzzle");
 
+            scan = new Scanner(new File("VisualMap.txt"));
+            while(scan.hasNext()){
+                for (int i = 0; i<visualMap.length;i++) {
+                    int number = scan.nextInt();
+                    visualMap[i] = number;
+                }
+            }
+            scan.close();
+//            for (int i = 0; i<visualMap.length;i++) {
+//                System.out.print(visualMap[i] + " ");
+//            }
         } catch (FileNotFoundException e) {
                 e.printStackTrace();
         }

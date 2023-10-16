@@ -207,6 +207,7 @@ public class Player {
         System.out.printf("| %2s %5s %-13s %7s \n", "inspect","","Inspect item","|");
         System.out.printf("| %2s %4s %-10s %6s \n", "location","","Check location","|");
         System.out.printf("| %2s %7s %-10s %6s \n", "stats","","Check HP & ATK","|");
+        System.out.printf("| %2s %9s %-10s %7s \n", "map","","Check the map","|");
         System.out.printf("| %2s %8s %-10s %10s \n", "help","","Help menu","|");
         System.out.println("-------------------------------------\n");
     }
@@ -239,6 +240,48 @@ public class Player {
         System.out.println("Health point (HP): " + playerHP);
         System.out.println("Attack (ATK): " + playerATK);
         System.out.println("------------------------\n");
+    }
+
+    public void displayMap(){
+        String notVisited = "";
+        for (int i = 1; i <= myMap.getNumberOfRooms(); i++){
+            if(!myMap.getRoom(i).isVisited())
+                notVisited = notVisited + " " + String.valueOf(myMap.getRoom(i).getRoomID());
+        }
+
+        int[] currentMap = myMap.visualMap.clone();
+        for (int i = 0; i < currentMap.length;i++){
+            if (notVisited.contains("2") && (currentMap[i]==2 || currentMap[i]==20))
+                currentMap[i] = 0;
+            if (notVisited.contains("3") && (currentMap[i]==3 || currentMap[i]==30))
+                currentMap[i] = 0;
+            if (notVisited.contains("4") && (currentMap[i]==4 || currentMap[i]==40))
+                currentMap[i] = 0;
+            if (notVisited.contains("5") && (currentMap[i]==5 || currentMap[i]==50))
+                currentMap[i] = 0;
+            if (notVisited.contains("6") && (currentMap[i]==6 || currentMap[i]==60))
+                currentMap[i] = 0;
+        }
+
+        int[][] array = new int [4][10];
+        int index=0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 10; j++) {
+                array[i][j] = currentMap[index];
+                ++index;
+            }
+        }
+        System.out.println("This is the map: ");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (array[i][j]==0)
+                    System.out.print(" ");
+                else if (array[i][j] > 6)
+                    System.out.print("*");
+                else System.out.print(array[i][j]);
+            }
+            System.out.println();
+        }
     }
 
 }
