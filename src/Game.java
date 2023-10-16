@@ -76,6 +76,16 @@ public class Game {
                 //System.out.println(itemName);
                 player1.inspectItem(itemName);
             }
+            else if (playerInput.toLowerCase().contains("equip")){
+                String itemName = playerInput.substring(6,playerInput.length()); //split item name
+                //System.out.println(itemName);
+                player1.equipItem(itemName);
+            }
+            else if (playerInput.toLowerCase().contains("takeoff")){
+                String itemName = playerInput.substring(8,playerInput.length()); //split item name
+                //System.out.println(itemName);
+                player1.unequipItem(itemName);
+            }
             else if (playerInput.equalsIgnoreCase("stats")){
                 player1.displayStats();
             }

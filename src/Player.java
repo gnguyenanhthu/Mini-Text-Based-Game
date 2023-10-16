@@ -16,15 +16,17 @@ public class Player {
     private Map myMap;
     private Room currentRoom;
     private ArrayList<Item> inventory = new ArrayList<Item>();
+    private static int maxHP = 100;
     private int playerHP;
     private int playerATK;
+    private ArrayList<Equipment> equipList = new ArrayList<>();
 
     public Player(String playerName, Map map) {
         this.playerName = playerName;
         this.myMap = map;
         this.currentRoom = myMap.getRoom(1);
         currentRoom.setVisited(true);
-        playerHP = 100;
+        playerHP = maxHP;
         playerATK = 20;
     }
 
@@ -178,10 +180,15 @@ public class Player {
     public void dropItem(String itemName){
         Item item = findItem(itemName);
         if (item!=null) {
-            removeFromInv(item);
-            currentRoom.addItem(item);
-            Collections.sort(currentRoom.getItemList());
-            System.out.println("You dropped: " + item.getItemName());
+            if (item instanceof Equipment && (equipList.contains((Equipment)item))){
+                System.out.println("You're equipping this item, take off before dropping it.");
+            }
+            else {
+                removeFromInv(item);
+                currentRoom.addItem(item);
+                Collections.sort(currentRoom.getItemList());
+                System.out.println("You dropped: " + item.getItemName());
+            }
         }
         else System.out.println("You don't have this item in your inventory.");
         displayLocation();
@@ -195,6 +202,42 @@ public class Player {
         else System.out.println("You don't have this item in your inventory.");
     }
 
+    public void equipItem(String itemName){
+        Item item = findItem(itemName);
+        if (item!=null) {
+            if ((item instanceof Equipment)){
+                Equipment equipment = (Equipment) item;
+                if (equipList.contains(equipment)) {
+                    System.out.println("You have already equip this weapon!");
+                }
+                else {
+                    playerATK += equipment.getAtkValue();
+                    equipList.add(equipment);
+                    System.out.println("You successfully equip " + equipment.getItemName() + ". Your ATK increased " + equipment.getAtkValue());
+                }
+            }
+            else
+                System.out.println("This item is not an equipment.");
+        }
+        else System.out.println("You don't have this item in your inventory.");
+    }
+
+    public void unequipItem(String equipmentName) {
+        Equipment equipment = null;
+        for (Equipment e : equipList) {
+            if (e.getItemName().equalsIgnoreCase(equipmentName)) {
+                equipment = e;
+                break;
+            }
+        }
+        if (equipment != null) {
+            playerATK -= equipment.getAtkValue();
+            equipList.remove(equipment);
+            System.out.println("You successfully take off " + equipment.getItemName() + ". Your ATK decreased " + equipment.getAtkValue());
+        } else
+            System.out.println("You didn't equip this item or this item is not an equipment.");
+    }
+
     public void displayCommand(){
         System.out.println("\n--------------HELP MENU--------------");
         System.out.printf("| %2s %5s %-10s %10s \n", "n/north", "", "Move North","|");
@@ -205,6 +248,8 @@ public class Player {
         System.out.printf("| %2s %6s %-10s %8s \n", "pickup","","Pick up item","|");
         System.out.printf("| %2s %8s %-10s %10s \n", "drop","","Drop item","|");
         System.out.printf("| %2s %5s %-13s %7s \n", "inspect","","Inspect item","|");
+        System.out.printf("| %2s %7s %-13s %7s \n", "equip","","Equip item","|");
+        System.out.printf("| %2s %5s %-13s %7s \n", "takeoff","","Unequip item","|");
         System.out.printf("| %2s %4s %-10s %6s \n", "location","","Check location","|");
         System.out.printf("| %2s %7s %-10s %6s \n", "stats","","Check HP & ATK","|");
         System.out.printf("| %2s %9s %-10s %7s \n", "map","","Check the map","|");
@@ -235,11 +280,11 @@ public class Player {
     }
 
     public void displayStats(){
-        System.out.println("\n-----Player's Stats-----");
+        System.out.println("\n-------Player's Stats-------");
         System.out.println("Player name: " + playerName);
-        System.out.println("Health point (HP): " + playerHP);
+        System.out.println("Health point (HP): " + playerHP + "/" + maxHP);
         System.out.println("Attack (ATK): " + playerATK);
-        System.out.println("------------------------\n");
+        System.out.println("----------------------------\n");
     }
 
     public void displayMap(){

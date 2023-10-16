@@ -37,48 +37,24 @@ public class Room {
         return roomID;
     }
 
-    public void setRoomID(int roomID) {
-        this.roomID = roomID;
-    }
-
     public String getRoomName() {
         return roomName;
-    }
-
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
     }
 
     public int getNorthRoom() {
         return northRoom;
     }
 
-    public void setNorthRoom(int northRoom) {
-        this.northRoom = northRoom;
-    }
-
     public int getEastRoom() {
         return eastRoom;
-    }
-
-    public void setEastRoom(int eastRoom) {
-        this.eastRoom = eastRoom;
     }
 
     public int getSouthRoom() {
         return southRoom;
     }
 
-    public void setSouthRoom(int southRoom) {
-        this.southRoom = southRoom;
-    }
-
     public int getWestRoom() {
         return westRoom;
-    }
-
-    public void setWestRoom(int westRoom) {
-        this.westRoom = westRoom;
     }
 
     public ArrayList<Item> getItemList() { return itemList; }

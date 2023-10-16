@@ -48,6 +48,19 @@ public class Map {
                 itemList.add(new Item(initRoomID,itemID,itemName,itemDescription));
             }
             scan.close();
+
+//            Loading Equipment information from Equipment.txt
+            scan = new Scanner(new File("Equipment.txt"));
+            scan.useDelimiter(",");
+            while(scan.hasNext()){
+                int itemID = scan.nextInt();
+                int initRoomID = scan.nextInt();
+                int atkValue = scan.nextInt();
+                String itemName = scan.next();
+                String itemDescription = scan.nextLine();
+                itemDescription = itemDescription.substring(1,itemDescription.length());
+                itemList.add(new Equipment(initRoomID,itemID,itemName,itemDescription,atkValue));
+            }
 //            System.out.println(itemList);
             for (Item i : itemList){
                 myMap.get(i.getInitRoomID()-1).addItem(i);
@@ -75,6 +88,7 @@ public class Map {
             }
             System.out.println("Finish adding Puzzle");
 
+//            Loading Visual Map
             scan = new Scanner(new File("VisualMap.txt"));
             while(scan.hasNext()){
                 for (int i = 0; i<visualMap.length;i++) {
