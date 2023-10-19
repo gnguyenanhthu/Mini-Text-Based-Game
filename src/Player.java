@@ -121,6 +121,12 @@ public class Player {
     public void displayLocation(){
         System.out.println("\n---------------");
         System.out.println("You are at Region " + currentRoom.getRoomID() + ", " + currentRoom.getRoomName());
+        System.out.println("---------------\n");
+    }
+
+    public void displayItem(){
+        System.out.println("\n---------------");
+        System.out.println("You are at Region " + currentRoom.getRoomID() + ", " + currentRoom.getRoomName());
         if (!currentRoom.getItemList().isEmpty())
             currentRoom.displayItemList();
         System.out.println("---------------\n");
@@ -174,7 +180,7 @@ public class Player {
             System.out.println("You have picked up: " + item.getItemName());
         }
         else System.out.println("There is no such item in this room.");
-        displayLocation();
+        displayItem();
     }
 
     public void dropItem(String itemName){
@@ -244,6 +250,7 @@ public class Player {
         System.out.printf("| %2s %6s %-10s %10s \n", "e/east","","Move East","|");
         System.out.printf("| %2s %5s %-13s %7s \n", "s/south","", "Move South","|");
         System.out.printf("| %2s %6s %-13s %7s \n", "w/west","","Move West","|");
+        System.out.printf("| %2s %5s %-13s %6s \n", "explore","","Explore a room","|");
         System.out.printf("| %2s %3s %-10s %5s \n", "inventory","", "Check inventory","|");
         System.out.printf("| %2s %6s %-10s %8s \n", "pickup","","Pick up item","|");
         System.out.printf("| %2s %8s %-10s %10s \n", "drop","","Drop item","|");
@@ -273,7 +280,7 @@ public class Player {
                     if ((i-1) > 0)
                         System.out.println("The answer you provided is wrong, you still have " + (i-1) +" attempts. Try one more time");
                     else
-                        System.out.println("No more attempts! Please comeback later.");
+                        System.out.println(currentRoom.getPuzzle().getLoseMessage());
                 }
             }
         }

@@ -55,6 +55,9 @@ public class Game {
             else if (playerInput.equalsIgnoreCase("location")){
                 player1.displayLocation();
             }
+            else if (playerInput.equalsIgnoreCase("explore")){
+                player1.displayItem();
+            }
             else if (playerInput.equalsIgnoreCase("help")){
                 player1.displayCommand();
             }

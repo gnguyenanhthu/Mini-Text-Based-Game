@@ -5,14 +5,16 @@ public class Puzzle {
     private String question;
     private String answer;
     private String solvedMessage;
+    private String loseMessage;
 
-    public Puzzle(int puzzleID, int initRoomID, int numbOfAttempts, String question, String answer, String solvedMessage) {
+    public Puzzle(int puzzleID, int initRoomID, int numbOfAttempts, String question, String answer, String solvedMessage, String loseMessage) {
         this.puzzleID = puzzleID;
         this.initRoomID = initRoomID;
         this.numbOfAttempts = numbOfAttempts;
         this.question = question;
         this.answer = answer;
         this.solvedMessage = solvedMessage;
+        this.loseMessage = loseMessage;
     }
 
     public int getPuzzleID() {
@@ -37,6 +39,10 @@ public class Puzzle {
 
     public String getSolvedMessage() {
         return solvedMessage;
+    }
+
+    public String getLoseMessage() {
+        return loseMessage;
     }
 
     @Override

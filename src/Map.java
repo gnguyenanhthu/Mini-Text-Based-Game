@@ -79,7 +79,8 @@ public class Map {
                 String question = scan.nextLine();
                 String answer = scan.nextLine();
                 String solvedMessage = scan.nextLine();
-                puzzleList.add(new Puzzle(puzzleID,initRoomID,numberOfAttempts,question,answer,solvedMessage));
+                String loseMessage = scan.nextLine();
+                puzzleList.add(new Puzzle(puzzleID,initRoomID,numberOfAttempts,question,answer,solvedMessage,loseMessage));
             }
             scan.close();
 //            System.out.println(puzzleList);
