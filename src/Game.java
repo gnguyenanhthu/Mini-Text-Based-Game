@@ -89,6 +89,11 @@ public class Game {
                 //System.out.println(itemName);
                 player1.unequipItem(itemName);
             }
+            else if (playerInput.toLowerCase().contains("use")){
+                String itemName = playerInput.substring(4,playerInput.length()); //split item name
+                //System.out.println(itemName);
+                player1.useItem(itemName);
+            }
             else if (playerInput.equalsIgnoreCase("stats")){
                 player1.displayStats();
             }

@@ -35,7 +35,12 @@ public class Monster {
 
     public int getRange() { return range; }
 
-    public void setMonsterHp(int monsterHp) { this.monsterHp = monsterHp; }
+    public void setMonsterHp(int monsterHp) {
+        if (monsterHp < 0)
+            this.monsterHp = 0;
+        else
+            this.monsterHp = monsterHp;
+    }
 
     @Override
     public String toString() {

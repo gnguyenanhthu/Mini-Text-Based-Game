@@ -48,6 +48,14 @@ public class Player {
 
     public int getPlayerHP() { return playerHP; }
 
+    public void setPlayerHP(int playerHP) {
+        if (playerHP < 0)
+            this.playerHP = 0;
+        else if (playerHP > maxHP)
+            this.playerHP = maxHP;
+        else this.playerHP = playerHP;
+    }
+
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
     }
@@ -263,6 +271,9 @@ public class Player {
         System.out.printf("| %2s %5s %-13s %7s \n", "inspect","","Inspect item","|");
         System.out.printf("| %2s %7s %-13s %7s \n", "equip","","Equip item","|");
         System.out.printf("| %2s %5s %-13s %7s \n", "unequip","","Unequip item","|");
+        System.out.printf("| %2s %9s %-10s %10s \n", "use","","Use item","|");
+        System.out.printf("| %2s %6s %-10s %5s \n", "attack","","Fight a monster","|");
+        System.out.printf("| %2s %6s %-10s %4s \n", "ignore","","Ignore a monster","|");
         System.out.printf("| %2s %4s %-10s %6s \n", "location","","Check location","|");
         System.out.printf("| %2s %7s %-10s %6s \n", "stats","","Check HP & ATK","|");
         System.out.printf("| %2s %9s %-10s %7s \n", "map","","Check the map","|");
@@ -365,7 +376,7 @@ public class Player {
             }
             else {
                 currentRoom.setMonster(null);
-                System.out.println("The monster appreciate your kindness, it quietly disappeared.");
+                System.out.println("The monster appreciated your kindness, it quietly disappeared.");
             }
         }
         else
@@ -374,7 +385,7 @@ public class Player {
     public void fightMonster(){
         Monster monster = currentRoom.getMonster();
         Scanner input = new Scanner(System.in);
-        System.out.println("Here are commands you can use: attack, inventory, equip, unequip.");
+        System.out.println("Here are commands you can use: attack, inventory, equip, unequip, use.");
         String answer = input.nextLine();
         while (monster.getMonsterHp() > 0 && playerHP > 0){
             if (answer.equalsIgnoreCase("inventory")) {
@@ -388,9 +399,15 @@ public class Player {
                 String itemName = answer.substring(8,answer.length()); //split item name
                 unequipItem(itemName);
             }
+            else if (answer.toLowerCase().contains("use")){
+                String itemName = answer.substring(4,answer.length()); //split item name
+                useItem(itemName);
+            }
             else if (answer.equalsIgnoreCase("attack")){
                 monster.setMonsterHp(monster.getMonsterHp() - playerATK);
                 System.out.println("You deal " + playerATK + " damage to monster.");
+                System.out.println("Monster's HP: " + monster.getMonsterHp());
+                System.out.println("~~~~~~~~~ ");
                 if (monster.getMonsterHp() <= 0) {
                     currentRoom.setMonster(null);
                     System.out.println("Monster is dead. You won!");
@@ -399,13 +416,14 @@ public class Player {
                 int dice = (int) ((Math.random() * (monster.getRange() - 1)) + 1);
                 System.out.println("You rolled " + dice);
                 if (dice < monster.getThreshold()) {
-                    playerHP = playerHP - monster.getAtkDmg() * 2;
+                    setPlayerHP(playerHP - monster.getAtkDmg() * 2);
                     System.out.println("Monster deals " + monster.getAtkDmg()*2 + " damage to you.");
                 }
                 else {
-                    playerHP = playerHP - monster.getAtkDmg();
+                    setPlayerHP(playerHP - monster.getAtkDmg());
                     System.out.println("Monster deals " + monster.getAtkDmg() + " damage to you.");
                 }
+                System.out.println("Player's HP: " + playerHP);
                 if (playerHP <= 0){
                     System.out.println("You're dead! GAME OVER!");
                     break;
@@ -416,5 +434,24 @@ public class Player {
             System.out.println("Please input your command: ");
             answer = input.nextLine();
         }
+    }
+
+    public void useItem(String consumableName){
+        Item item = findItem(consumableName);
+        if (item!=null) {
+            if ((item instanceof Consumable)){
+                Consumable useItem = (Consumable) item;
+                setPlayerHP(playerHP + useItem.getHpValue());
+                if (playerHP > maxHP)
+                    System.out.println("You healed " + (maxHP - playerHP));
+                else
+                    System.out.println("You healed " + useItem.getHpValue());
+                System.out.println("Player's HP: " + playerHP + "/" + maxHP);
+                inventory.remove(item);
+            }
+            else
+                System.out.println("This item is not consumable.");
+        }
+        else System.out.println("You don't have this item in your inventory.");
     }
 }

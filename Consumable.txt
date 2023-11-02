@@ -1,0 +1,1 @@
+7,1,50,Potion,Consumable: Use this item to heal 50HP

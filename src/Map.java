@@ -26,6 +26,7 @@ public class Map {
 
         loadItem();
         loadEquipment();
+        loadConsumable();
         for (Item i : itemList) {
             myMap.get(i.getInitRoomID() - 1).addItem(i);
         }
@@ -88,7 +89,7 @@ public class Map {
         }
     }
 
-    //Loading Item information from Equipment.txt
+    //Loading Equipment information from Equipment.txt
     public void loadEquipment(){
         try {
             Scanner scan = new Scanner(new File("Equipment.txt"));
@@ -101,6 +102,26 @@ public class Map {
                 String itemDescription = scan.nextLine();
                 itemDescription = itemDescription.substring(1,itemDescription.length());
                 itemList.add(new Equipment(initRoomID,itemID,itemName,itemDescription,atkValue));
+            }
+            scan.close();
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
+    //Loading Consumable item information from Consumable.txt
+    public void loadConsumable(){
+        try {
+            Scanner scan = new Scanner(new File("Consumable.txt"));
+            scan.useDelimiter(",");
+            while(scan.hasNext()){
+                int itemID = scan.nextInt();
+                int initRoomID = scan.nextInt();
+                int hpValue = scan.nextInt();
+                String itemName = scan.next();
+                String itemDescription = scan.nextLine();
+                itemDescription = itemDescription.substring(1,itemDescription.length());
+                itemList.add(new Consumable(initRoomID,itemID,itemName,itemDescription,hpValue));
             }
             scan.close();
         } catch (FileNotFoundException e){
