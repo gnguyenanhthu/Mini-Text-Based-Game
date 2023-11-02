@@ -129,6 +129,8 @@ public class Player {
         System.out.println("You are at Region " + currentRoom.getRoomID() + ", " + currentRoom.getRoomName());
         if (!currentRoom.getItemList().isEmpty())
             currentRoom.displayItemList();
+        else
+            System.out.println("There's nothing in this room.");
         System.out.println("---------------\n");
     }
 
@@ -180,7 +182,6 @@ public class Player {
             System.out.println("You have picked up: " + item.getItemName());
         }
         else System.out.println("There is no such item in this room.");
-        displayItem();
     }
 
     public void dropItem(String itemName){
@@ -197,7 +198,6 @@ public class Player {
             }
         }
         else System.out.println("You don't have this item in your inventory.");
-        displayLocation();
     }
 
     public void inspectItem(String itemName){
@@ -219,6 +219,7 @@ public class Player {
                 else {
                     playerATK += equipment.getAtkValue();
                     equipList.add(equipment);
+                    inventory.remove(equipment);
                     System.out.println("You successfully equip " + equipment.getItemName() + ". Your ATK increased " + equipment.getAtkValue());
                 }
             }
@@ -239,7 +240,8 @@ public class Player {
         if (equipment != null) {
             playerATK -= equipment.getAtkValue();
             equipList.remove(equipment);
-            System.out.println("You successfully take off " + equipment.getItemName() + ". Your ATK decreased " + equipment.getAtkValue());
+            inventory.add(equipment);
+            System.out.println("You successfully unequip " + equipment.getItemName() + ". Your ATK decreased " + equipment.getAtkValue());
         } else
             System.out.println("You didn't equip this item or this item is not an equipment.");
     }
@@ -256,7 +258,7 @@ public class Player {
         System.out.printf("| %2s %8s %-10s %10s \n", "drop","","Drop item","|");
         System.out.printf("| %2s %5s %-13s %7s \n", "inspect","","Inspect item","|");
         System.out.printf("| %2s %7s %-13s %7s \n", "equip","","Equip item","|");
-        System.out.printf("| %2s %5s %-13s %7s \n", "takeoff","","Unequip item","|");
+        System.out.printf("| %2s %5s %-13s %7s \n", "unequip","","Unequip item","|");
         System.out.printf("| %2s %4s %-10s %6s \n", "location","","Check location","|");
         System.out.printf("| %2s %7s %-10s %6s \n", "stats","","Check HP & ATK","|");
         System.out.printf("| %2s %9s %-10s %7s \n", "map","","Check the map","|");

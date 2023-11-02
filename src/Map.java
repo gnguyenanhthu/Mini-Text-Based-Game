@@ -18,7 +18,30 @@ public class Map {
     ArrayList<Item> itemList = new ArrayList<>();
     ArrayList<Puzzle> puzzleList = new ArrayList<>();
     int[] visualMap = new int[40];
-    public Map(){
+    public Map() {
+        loadRoom();
+        System.out.println("Finish loading Room");
+        //System.out.println(myMap);
+
+        loadItem();
+        loadEquipment();
+        for (Item i : itemList) {
+            myMap.get(i.getInitRoomID() - 1).addItem(i);
+        }
+        System.out.println("Finish adding Item");
+        //System.out.println(itemList);
+
+        loadPuzzle();
+        for (Puzzle p : puzzleList) {
+            myMap.get(p.getInitRoomID() - 1).setPuzzle(p);
+        }
+        System.out.println("Finish adding Puzzle");
+        //System.out.println(puzzleList);
+
+        loadVisualMap();
+    }
+
+    public void loadRoom(){
         try {
             Scanner scan = new Scanner(new File(defaultFile));
             scan.useDelimiter(",");
@@ -33,24 +56,34 @@ public class Map {
                 myMap.add(new Room(roomID,roomName,northRoom,eastRoom,southRoom,westRoom,isVisited));
             }
             scan.close();
-//            System.out.println(myMap);
-            System.out.println("Finish loading Room");
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+    }
 
-//            Loading Item information from Item.txt
-            scan = new Scanner(new File("Item.txt"));
+    //Loading Item information from Item.txt
+    public void loadItem(){
+        try {
+            Scanner scan = new Scanner(new File("Item.txt"));
             scan.useDelimiter(",");
-            while(scan.hasNext()){
+            while (scan.hasNext()) {
                 int itemID = scan.nextInt();
                 int initRoomID = scan.nextInt();
                 String itemName = scan.next();
                 String itemDescription = scan.nextLine();
-                itemDescription = itemDescription.substring(1,itemDescription.length());
-                itemList.add(new Item(initRoomID,itemID,itemName,itemDescription));
+                itemDescription = itemDescription.substring(1, itemDescription.length());
+                itemList.add(new Item(initRoomID, itemID, itemName, itemDescription));
             }
             scan.close();
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+    }
 
-//            Loading Equipment information from Equipment.txt
-            scan = new Scanner(new File("Equipment.txt"));
+    //Loading Item information from Equipment.txt
+    public void loadEquipment(){
+        try {
+            Scanner scan = new Scanner(new File("Equipment.txt"));
             scan.useDelimiter(",");
             while(scan.hasNext()){
                 int itemID = scan.nextInt();
@@ -61,14 +94,16 @@ public class Map {
                 itemDescription = itemDescription.substring(1,itemDescription.length());
                 itemList.add(new Equipment(initRoomID,itemID,itemName,itemDescription,atkValue));
             }
-//            System.out.println(itemList);
-            for (Item i : itemList){
-                myMap.get(i.getInitRoomID()-1).addItem(i);
-            }
-            System.out.println("Finish adding Item");
+            scan.close();
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+    }
 
-//            Loading Puzzle information from Puzzle.txt
-            scan = new Scanner(new File("Puzzle.txt"));
+//  Loading Puzzle information from Puzzle.txt
+    public void loadPuzzle(){
+        try {
+            Scanner scan = new Scanner(new File("Puzzle.txt"));
             while(scan.hasNext()){
                 int puzzleID = scan.nextInt();
                 String temp = scan.nextLine();
@@ -83,26 +118,27 @@ public class Map {
                 puzzleList.add(new Puzzle(puzzleID,initRoomID,numberOfAttempts,question,answer,solvedMessage,loseMessage));
             }
             scan.close();
-//            System.out.println(puzzleList);
-            for (Puzzle p : puzzleList){
-                myMap.get(p.getInitRoomID()-1).setPuzzle(p);
-            }
-            System.out.println("Finish adding Puzzle");
 
-//            Loading Visual Map
-            scan = new Scanner(new File("VisualMap.txt"));
-            while(scan.hasNext()){
-                for (int i = 0; i<visualMap.length;i++) {
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void loadVisualMap(){
+        try {
+            Scanner scan = new Scanner(new File("VisualMap.txt"));
+            while(scan.hasNext()) {
+                for (int i = 0; i < visualMap.length; i++) {
                     int number = scan.nextInt();
                     visualMap[i] = number;
                 }
             }
-            scan.close();
 //            for (int i = 0; i<visualMap.length;i++) {
 //                System.out.print(visualMap[i] + " ");
 //            }
-        } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            scan.close();
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
         }
     }
 
