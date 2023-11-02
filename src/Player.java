@@ -46,6 +46,8 @@ public class Player {
         return inventory;
     }
 
+    public int getPlayerHP() { return playerHP; }
+
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
     }
@@ -406,7 +408,7 @@ public class Player {
                 }
                 if (playerHP <= 0){
                     System.out.println("You're dead! GAME OVER!");
-                    System.exit(0);
+                    break;
                 }
             } else {
                 System.out.println("Please enter correct command.");

@@ -97,15 +97,34 @@ public class Game {
             }
             else if (playerInput.equalsIgnoreCase("examine monster")){
                 player1.examineMonster();
+                if (player1.getPlayerHP() <= 0)
+                    break;
             }
             else{
                 System.out.println("Please enter correct command.");
             }
-
             System.out.println("Please input your command: ");
             playerInput = input.nextLine();
         }
-        player1.checkAllVisited();
-        System.out.println("Bye " + player1.getPlayerName() + " ~ Thank you for traveling around the world with us!");
+        if (player1.getPlayerHP() > 0) {
+            player1.checkAllVisited();
+            System.out.println("Bye " + player1.getPlayerName() + " ~ Thank you for traveling around the world with us!");
+        }
+        else {
+            System.out.println("What do you want to do?");
+            System.out.println("1. Start new game (restart)");
+            System.out.println("2. Exit");
+            playerInput = input.nextLine();
+            if (playerInput.equalsIgnoreCase("restart"))
+                playAgain();
+            else
+                System.exit(0);
+        }
+    }
+
+    public void playAgain(){
+        Game game = new Game();
+        game.start();
+        game.play();
     }
 }
