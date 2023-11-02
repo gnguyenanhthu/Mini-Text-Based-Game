@@ -95,6 +95,9 @@ public class Game {
             else if (playerInput.equalsIgnoreCase("map")){
                 player1.displayMap();
             }
+            else if (playerInput.equalsIgnoreCase("examine monster")){
+                player1.examineMonster();
+            }
             else{
                 System.out.println("Please enter correct command.");
             }

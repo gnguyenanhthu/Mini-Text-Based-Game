@@ -17,6 +17,7 @@ public class Map {
     ArrayList<Room> myMap = new ArrayList<>();
     ArrayList<Item> itemList = new ArrayList<>();
     ArrayList<Puzzle> puzzleList = new ArrayList<>();
+    ArrayList<Monster> monsterList = new ArrayList<>();
     int[] visualMap = new int[40];
     public Map() {
         loadRoom();
@@ -37,6 +38,13 @@ public class Map {
         }
         System.out.println("Finish adding Puzzle");
         //System.out.println(puzzleList);
+
+        loadMonster();
+        for (Monster m : monsterList) {
+            myMap.get(m.getInitRoomID() - 1).setMonster(m);
+        }
+        System.out.println("Finish adding Monster");
+        //System.out.println(monsterList);
 
         loadVisualMap();
     }
@@ -100,7 +108,7 @@ public class Map {
         }
     }
 
-//  Loading Puzzle information from Puzzle.txt
+    //Loading Puzzle information from Puzzle.txt
     public void loadPuzzle(){
         try {
             Scanner scan = new Scanner(new File("Puzzle.txt"));
@@ -119,6 +127,32 @@ public class Map {
             }
             scan.close();
 
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
+    //Loading Puzzle information from Puzzle.txt
+    public void loadMonster(){
+        try {
+            Scanner scan = new Scanner(new File("Monster.txt"));
+            while(scan.hasNext()){
+                int monsterID = scan.nextInt();
+                String temp = scan.nextLine();
+                int initRoomID = scan.nextInt();
+                temp = scan.nextLine();
+                String name = scan.nextLine();
+                String description = scan.nextLine();
+                int atkDmg = scan.nextInt();
+                temp = scan.nextLine();
+                int monsterHp = scan.nextInt();
+                temp = scan.nextLine();
+                int threshold = scan.nextInt();
+                temp = scan.nextLine();
+                int range = scan.nextInt();
+                monsterList.add(new Monster(monsterID,initRoomID,name,description,atkDmg,monsterHp,threshold,range));
+            }
+            scan.close();
         } catch (FileNotFoundException e){
             e.printStackTrace();
         }

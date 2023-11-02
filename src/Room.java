@@ -22,6 +22,7 @@ public class Room {
     private ArrayList<Item> itemList = new ArrayList<>();
 
     private Puzzle puzzle = null;
+    private Monster monster = null;
 
     public Room(int roomID, String roomName, int northRoom, int eastRoom, int southRoom, int westRoom, boolean isVisited) {
         this.roomID = roomID;
@@ -66,6 +67,10 @@ public class Room {
     public void setPuzzle(Puzzle puzzle) {
         this.puzzle = puzzle;
     }
+
+    public Monster getMonster() { return monster; }
+
+    public void setMonster(Monster monster) { this.monster = monster; }
 
     public boolean isVisited() {
         return isVisited;

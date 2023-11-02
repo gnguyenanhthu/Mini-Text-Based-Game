@@ -127,10 +127,12 @@ public class Player {
     public void displayItem(){
         System.out.println("\n---------------");
         System.out.println("You are at Region " + currentRoom.getRoomID() + ", " + currentRoom.getRoomName());
+        if (currentRoom.getMonster()!=null)
+            System.out.println("There's a monster here!");
         if (!currentRoom.getItemList().isEmpty())
             currentRoom.displayItemList();
         else
-            System.out.println("There's nothing in this room.");
+            System.out.println("There's no items in this room.");
         System.out.println("---------------\n");
     }
 
@@ -338,4 +340,79 @@ public class Player {
         }
     }
 
+    public void examineMonster(){
+        if (currentRoom.getMonster()!=null){
+            Monster roomMonster = currentRoom.getMonster();
+            System.out.println("\n######");
+            System.out.println(roomMonster.getName());
+            System.out.println(roomMonster.getDescription());
+            System.out.println("Attack Damage: " + roomMonster.getAtkDmg());
+            System.out.println("######");
+            System.out.println("What do you want to do with this monster?");
+            System.out.println("1. Fight it (attack)");
+            System.out.println("2. Leave it alone (ignore)");
+            Scanner input = new Scanner(System.in);
+            String answer = input.nextLine();
+            while(!answer.equalsIgnoreCase("attack") && !answer.equalsIgnoreCase("ignore")){
+                System.out.println("Please type 'attack' or 'ignore'");
+                answer = input.nextLine();
+            }
+            if (answer.equalsIgnoreCase("attack")) {
+                System.out.println("GAME ON");
+                fightMonster();
+            }
+            else {
+                currentRoom.setMonster(null);
+                System.out.println("The monster appreciate your kindness, it quietly disappeared.");
+            }
+        }
+        else
+            System.out.println("There's no monster to examine.");
+    }
+    public void fightMonster(){
+        Monster monster = currentRoom.getMonster();
+        Scanner input = new Scanner(System.in);
+        System.out.println("Here are commands you can use: attack, inventory, equip, unequip.");
+        String answer = input.nextLine();
+        while (monster.getMonsterHp() > 0 && playerHP > 0){
+            if (answer.equalsIgnoreCase("inventory")) {
+                displayInventory();
+            }
+            else if (answer.toLowerCase().contains("equip") && !answer.toLowerCase().contains("unequip")){
+                String itemName = answer.substring(6,answer.length()); //split item name
+                equipItem(itemName);
+            }
+            else if (answer.toLowerCase().contains("unequip")){
+                String itemName = answer.substring(8,answer.length()); //split item name
+                unequipItem(itemName);
+            }
+            else if (answer.equalsIgnoreCase("attack")){
+                monster.setMonsterHp(monster.getMonsterHp() - playerATK);
+                System.out.println("You deal " + playerATK + " damage to monster.");
+                if (monster.getMonsterHp() <= 0) {
+                    currentRoom.setMonster(null);
+                    System.out.println("Monster is dead. You won!");
+                    break;
+                }
+                int dice = (int) ((Math.random() * (monster.getRange() - 1)) + 1);
+                System.out.println("You rolled " + dice);
+                if (dice < monster.getThreshold()) {
+                    playerHP = playerHP - monster.getAtkDmg() * 2;
+                    System.out.println("Monster deals " + monster.getAtkDmg()*2 + " damage to you.");
+                }
+                else {
+                    playerHP = playerHP - monster.getAtkDmg();
+                    System.out.println("Monster deals " + monster.getAtkDmg() + " damage to you.");
+                }
+                if (playerHP <= 0){
+                    System.out.println("You're dead! GAME OVER!");
+                    System.exit(0);
+                }
+            } else {
+                System.out.println("Please enter correct command.");
+            }
+            System.out.println("Please input your command: ");
+            answer = input.nextLine();
+        }
+    }
 }
